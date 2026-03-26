@@ -19,7 +19,10 @@ export async function middleware(request: Request) {
   const pathname = url.pathname
 
   if (pathname.startsWith('/api')) {
-    if (pathname.startsWith('/api/auth')) {
+    // cfmail 兼容 API 和 auth 走自己的鉴权，跳过中间件
+    if (pathname.startsWith('/api/auth') ||
+        pathname.startsWith('/api/new_address') ||
+        pathname.startsWith('/api/mails')) {
       return NextResponse.next()
     }
 
